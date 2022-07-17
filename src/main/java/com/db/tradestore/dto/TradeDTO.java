@@ -5,6 +5,7 @@ import com.db.tradestore.validation.NotMatured;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -13,14 +14,14 @@ import java.util.Date;
 @EqualsAndHashCode
 @ToString()
 @NoArgsConstructor
-@LatestVersion
+//@LatestVersion
 public class TradeDTO {
 
     @NotEmpty
     @Size(min=2,max=10)
     private  String tradeId;
 
-    @NotEmpty
+    @Positive
     private Integer version;
 
     @NotEmpty
@@ -31,10 +32,12 @@ public class TradeDTO {
     @Size(min=2,max=10)
     private String bookId;
 
-    @NotEmpty
-    @NotMatured
+    @NotMatured // @Future could be used
     private Date maturityDate;
 
     private Date createdDate;
     private Character expired;
+
+    private String errorMessage = "";
+
 }

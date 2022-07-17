@@ -1,0 +1,77 @@
+{
+	"info": {
+		"_postman_id": "8773ce38-aab6-4c6f-97c3-d0da080042e4",
+		"name": "TradeStore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/trades",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tradeId\" : \"\",\r\n    \"version\" : 1,\r\n    \"counterPartyId\" : \"CP-1\",\r\n    \"bookId\" : \"B2\",\r\n    \"maturityDate\" : \"2020-05-20\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/trades",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"trades"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/trades/T4",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/trades/T4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"trades",
+						"T4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/expire",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/trades/T4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"trades",
+						"T4"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

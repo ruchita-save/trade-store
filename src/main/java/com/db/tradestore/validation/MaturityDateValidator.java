@@ -11,7 +11,7 @@ public class MaturityDateValidator implements ConstraintValidator<NotMatured, Da
 
     @Override
     public boolean isValid(Date date, ConstraintValidatorContext constraintValidatorContext) {
-        return date != null && date.before(new Date());
+        return date != null && date.after(new Date());
     }
 
 }

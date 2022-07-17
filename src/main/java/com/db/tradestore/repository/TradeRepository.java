@@ -9,4 +9,5 @@ import java.util.List;
 public interface TradeRepository extends JpaRepository<Trade, Long> {
 List<Trade> findByTradeIdContaining(String tradeId);
 List<Trade> findByMaturityDateLessThanEqual(Date currentDate);
+List<Trade> findByTradeIdContainingAndVersionGreaterThan(String tradeId, Integer version);
 }

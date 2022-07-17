@@ -1,19 +1,24 @@
 package com.db.tradestore.validation;
 
-import com.db.tradestore.model.Trade;
+import com.db.tradestore.dto.TradeDTO;
 import com.db.tradestore.service.TradeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class LatestVersionValidator implements ConstraintValidator<LatestVersion , Trade>{
+@Slf4j
+@Component
+public class LatestVersionValidator implements ConstraintValidator<LatestVersion , TradeDTO>{
 
     @Autowired
-    private TradeService tradeService;
+    TradeService tradeService;
 
     @Override
-    public boolean isValid(Trade trade, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(TradeDTO trade, ConstraintValidatorContext constraintValidatorContext) {
         return trade!= null && tradeService.isLatestVersion(trade);
     }
+
 }
