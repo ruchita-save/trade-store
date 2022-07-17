@@ -31,6 +31,9 @@ public class TradeController {
     @Autowired
     TradeService tradeService;
 
+    @Autowired
+    TradeExpiration tradeExpiration;
+
     @GetMapping("/trades/{tradeId}")
     public ResponseEntity<List<Trade>> getTradeByTradeId(@PathVariable(required = true) String tradeId){
         try {
@@ -98,11 +101,8 @@ public class TradeController {
     @GetMapping("/expire")
     public ResponseEntity<List<Trade>> expiryTrade(){
         try{
-
-            TradeExpiration tradeExpiration = new TradeExpiration(tradeRepository);
-            tradeExpiration.expireMaturedTrade();
-
-            return new ResponseEntity<>(null,HttpStatus.OK);
+            List<Trade> maturedTrade = tradeExpiration.expireMaturedTrade();
+            return new ResponseEntity<>(maturedTrade,HttpStatus.OK);
 
         }catch(Exception e){
             log.error("Error occurred while expiration" , e);

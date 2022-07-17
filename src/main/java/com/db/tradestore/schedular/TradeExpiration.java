@@ -21,17 +21,15 @@ public class TradeExpiration {
     }
 
     @Scheduled(cron = "0 0 0 * * *",zone = "Indian/Maldives")
-    public int expireMaturedTrade(){
+    public List<Trade> expireMaturedTrade(){
         List<Trade> maturedTradeList = tradeRepository.findByMaturityDateLessThanEqual(new Date());
         if(ObjectUtils.isEmpty(maturedTradeList)){
-            return 0;
+            return null;
         }
         log.info("{} trades expired on {}",maturedTradeList.size(),new Date());
         for(Trade maturedTrade : maturedTradeList){
             maturedTrade.setExpired('Y');
         }
-        tradeRepository.saveAll(maturedTradeList);
-
-        return maturedTradeList.size();
+        return tradeRepository.saveAll(maturedTradeList);
     }
 }
