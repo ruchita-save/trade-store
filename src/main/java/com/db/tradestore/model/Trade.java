@@ -29,6 +29,7 @@ public class Trade {
     @Column(name = "book_id")
     private String bookId;
 
+    @Temporal(value = TemporalType.DATE)
     @Column(name = "maturity_date")
     private Date maturityDate;
 

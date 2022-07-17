@@ -1,5 +1,6 @@
 package com.db.tradestore.controller;
 
+import com.db.tradestore.dto.TradeDTO;
 import com.db.tradestore.model.Trade;
 import com.db.tradestore.repository.TradeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -8,9 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.*;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @Slf4j
@@ -44,16 +47,20 @@ public class TradeController {
     }
 
     @PostMapping("/trades")
-    public ResponseEntity<Trade> addTrade(@RequestBody Trade trade){
+    public ResponseEntity<Trade> addTrade(@RequestBody @Valid TradeDTO tradeDto){
         try{
-            Trade _trade = tradeRepository.save(new Trade(trade.getTradeId(),trade.getVersion(),trade.getCounterPartyId(),
-                    trade.getBookId(),trade.getMaturityDate(), new Date()));
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+            Set<ConstraintViolation<TradeDTO>> constraintViolations = validator.validate(tradeDto);
+            log.info("Constraints found {}",!constraintViolations.isEmpty());
+            Trade _trade = tradeRepository.save(new Trade(tradeDto.getTradeId(),tradeDto.getVersion(),tradeDto.getCounterPartyId(),
+                    tradeDto.getBookId(),tradeDto.getMaturityDate(), new Date()));
             if(_trade.getId() > 0){
                 log.info("Trade added successfully with id {}",_trade.getId());
             }
             return new ResponseEntity<>(_trade,HttpStatus.CREATED);
         }catch(Exception e){
-            log.error("Exception occurred while adding trade ID {} in trade store.",trade.getTradeId(),e);
+            log.error("Exception occurred while adding trade ID {} in trade store.",tradeDto.getTradeId(),e);
             return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
