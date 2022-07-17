@@ -1,0 +1,5 @@
+tradeid,version,cpid,bookid,maturitydate,createddate,expired
+T1,1,CP-1,B1,20/05/2022,21/09/2021,N
+T2,2,CP-2,B1,20/05/2022,21/09/2021,N
+T2,1,CP-1,B1,20/05/2202,14/03/2015,N
+T4,3,CP-3,B2,20/05/2015,21/09/2021,Y
