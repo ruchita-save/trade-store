@@ -28,8 +28,8 @@ public class TradeController {
     @Autowired
     TradeRepository tradeRepository;
 
-    @Autowired
-    TradeService tradeService;
+/*    @Autowired
+    TradeService tradeService;*/
 
     @Autowired
     TradeExpiration tradeExpiration;
@@ -60,7 +60,7 @@ public class TradeController {
     @PostMapping("/trades")
     public ResponseEntity<TradeDTO> addTrade(@RequestBody TradeDTO tradeDto){
         try{
-            log.info("Trade Service {}" ,tradeService);
+           // log.info("Trade Service {}" ,tradeService);
 
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
@@ -71,10 +71,10 @@ public class TradeController {
                  responseTradeDTO.setErrorMessage(responseTradeDTO.getErrorMessage().concat(error.getMessage()).concat(". "));
             }
 
-            if(!tradeService.isLatestVersion(tradeDto)){
+           /* if(!tradeService.isLatestVersion(tradeDto)){
                 responseTradeDTO.setErrorMessage(responseTradeDTO.getErrorMessage().concat(" Latest version is not valid for trade."));
-            }
-            if(!constraintViolations.isEmpty() || !responseTradeDTO.getErrorMessage().isEmpty()){
+            }*/
+            if(!constraintViolations.isEmpty()){
                 return new ResponseEntity<>(responseTradeDTO,HttpStatus.BAD_REQUEST);
             }
             Trade _trade = tradeRepository.save(new Trade(tradeDto.getTradeId(),tradeDto.getVersion(),tradeDto.getCounterPartyId(),

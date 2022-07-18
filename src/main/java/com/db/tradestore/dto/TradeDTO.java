@@ -14,7 +14,7 @@ import java.util.Date;
 @EqualsAndHashCode
 @ToString()
 @NoArgsConstructor
-//@LatestVersion
+@LatestVersion
 public class TradeDTO {
 
     @NotEmpty

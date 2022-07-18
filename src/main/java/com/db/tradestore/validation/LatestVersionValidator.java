@@ -1,6 +1,7 @@
 package com.db.tradestore.validation;
 
 import com.db.tradestore.dto.TradeDTO;
+import com.db.tradestore.service.ServiceUtils;
 import com.db.tradestore.service.TradeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,4 +22,8 @@ public class LatestVersionValidator implements ConstraintValidator<LatestVersion
         return trade!= null && tradeService.isLatestVersion(trade);
     }
 
+    @Override
+    public void initialize(LatestVersion constraintAnnotation) {
+        tradeService = ServiceUtils.getTradeService();
+    }
 }
